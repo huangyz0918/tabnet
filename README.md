@@ -13,6 +13,10 @@ Setup environment
 pip install -r requirements.txt
 ```
 
+```bash
+export PYTHONPATH="${PWD}"
+```
+
 Run experiment on the Forest Cover Type dataset. 
 
 ```bash
