@@ -28,25 +28,16 @@ python3 main.py
 Here is an example output from the console by conducting the self-superised learning for TabNet on Forest Cover Type dataset.
 
 ```bash
-psutil is not installed. You will not be able to abort this experiment from the UI.
-psutil is not installed. Hardware metrics will not be collected.
-https://app.neptune.ai/huangyz0918/tabnet/e/TAB-38
-Device configuration: Using cuda:0 for training/inference
 Starting training...
 Training model with predictive objective
-Predictive - Epoch: 1, Step: 29, Total train loss: 1.2457, Validation criterion loss: 0.9108, Validation accuracy: 0.6272
-Predictive - Epoch: 2, Step: 58, Total train loss: 0.8106, Validation criterion loss: 0.7856, Validation accuracy: 0.6642
-Predictive - Epoch: 3, Step: 87, Total train loss: 0.7551, Validation criterion loss: 0.8022, Validation accuracy: 0.6584
-Predictive - Epoch: 4, Step: 116, Total train loss: 0.7407, Validation criterion loss: 0.7971, Validation accuracy: 0.6581
-Predictive - Epoch: 5, Step: 145, Total train loss: 0.7272, Validation criterion loss: 0.7679, Validation accuracy: 0.6728
-Predictive - Epoch: 6, Step: 174, Total train loss: 0.7099, Validation criterion loss: 0.7626, Validation accuracy: 0.6878
-Predictive - Epoch: 7, Step: 203, Total train loss: 0.6896, Validation criterion loss: 0.7723, Validation accuracy: 0.6809
-Predictive - Epoch: 8, Step: 232, Total train loss: 0.687, Validation criterion loss: 0.8589, Validation accuracy: 0.6572
-Predictive - Epoch: 9, Step: 261, Total train loss: 0.673, Validation criterion loss: 0.8155, Validation accuracy: 0.6688
-Predictive - Epoch: 10, Step: 290, Total train loss: 0.6671, Validation criterion loss: 0.9569, Validation accuracy: 0.6616
-Saving model to: runs/forest_cover/1624188253_forest_cover_predictive_model_final.pt
+Predictive - Epoch: 1, Step: 29, Total train loss: 1.1801, Validation criterion loss: 0.9035, Validation accuracy: 0.6263
+Predictive - Epoch: 2, Step: 58, Total train loss: 0.7854, Validation criterion loss: 0.8017, Validation accuracy: 0.6498
+Predictive - Epoch: 3, Step: 87, Total train loss: 0.7387, Validation criterion loss: 0.7674, Validation accuracy: 0.6743
+Predictive - Epoch: 4, Step: 116, Total train loss: 0.7253, Validation criterion loss: 0.747, Validation accuracy: 0.6913
+Predictive - Epoch: 5, Step: 145, Total train loss: 0.711, Validation criterion loss: 0.7692, Validation accuracy: 0.6835
+Saving model to: runs/forest_cover/1624193671_forest_cover_predictive_model_final.pt
 Device configuration: Using cuda:0 for training/inference
-TabNet accuracy: 0.662
+TabNet accuracy: 0.683
 ```
 
 ## Reference 
