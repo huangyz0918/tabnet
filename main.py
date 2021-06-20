@@ -17,23 +17,23 @@ data_params = {
 }
 
 train_params = {
-    "batch_size": 8192,
+    "batch_size": 16384,
     "run_self_supervised_training": False,
     "run_supervised_training": True,
     "early_stopping": True,
     "early_stopping_min_delta_pct": 0,
-    "early_stopping_patience": 5,
-    "max_epochs_supervised": 5,
-    "max_epochs_self_supervised": 4,
-    "epoch_save_frequency": 5,
+    "early_stopping_patience": 10,
+    "max_epochs_supervised": 10,
+    "max_epochs_self_supervised": 10,
+    "epoch_save_frequency": 10,
     "train_generator_shuffle": True,
     "train_generator_n_workers": 0,
     "epsilon": 1e-7,
-    "learning_rate": 0.01,
+    "learning_rate": 0.02,
     "learning_rate_decay_factor": 0.95,
     "learning_rate_decay_step_rate": 1000,
     "sparsity_regularization": 0.0001,
-    "p_mask": 0.8,
+    "p_mask": 0.7,
 }
 
 model_params = {

@@ -450,9 +450,7 @@ class TabNet(object):
             and isinstance(X_val, np.ndarray)
             and X_val.shape[1] != X_train.shape[1]
         ):
-            raise ValueError(
-                "Training and validation datasets have differing number of columns"
-            )
+            raise ValueError("Training and validation datasets have differing number of columns")
 
         # Configure categorical variables
         if len(self.model_params["categorical_variables"]) > 0:
@@ -519,13 +517,8 @@ class TabNet(object):
             )
 
         # Adjust train_data input dims based on categorical embeddings
-        n_input_dims = X_train.shape[1] + (
-            len(self.model_params["categorical_config"])
-            * (self.model_params["embedding_dim"] - 1)
-        )
-        n_continuous_dims = X_train.shape[1] - len(
-            self.model_params["categorical_config"]
-        )
+        n_input_dims = X_train.shape[1] + (len(self.model_params["categorical_config"]) * (self.model_params["embedding_dim"] - 1))
+        n_continuous_dims = X_train.shape[1] - len(self.model_params["categorical_config"])
 
         # Update with correct dimensions
         if self.model is None:
@@ -541,20 +534,13 @@ class TabNet(object):
             self.model = TabNetModel(**self.model_params)
             self.model.to(self.device)
 
-        X_test_batch_cont, X_test_batch_cat, _ = train_data.random_batch(
-            self.train_params["batch_size"]
-        )
+        X_test_batch_cont, X_test_batch_cat, _ = train_data.random_batch(self.train_params["batch_size"])
 
         self.model.train()  # Enable training mode
         print("Starting training...")
 
-        if (
-            self.train_params["run_self_supervised_training"] == False
-            and self.train_params["run_supervised_training"] == False
-        ):
-            raise ValueError(
-                "No training scheme defined: set `run_self_supervised_training` or `run_supervised_training` to True"
-            )
+        if (self.train_params["run_self_supervised_training"] == False and self.train_params["run_supervised_training"] == False):
+            raise ValueError("No training scheme defined: set `run_self_supervised_training` or `run_supervised_training` to True")
 
         step = 0
         if self.train_params["run_self_supervised_training"]:
@@ -578,9 +564,7 @@ class TabNet(object):
 
     def __predict(self, X, batch_size=1024):
         if not self.model:
-            raise ValueError(
-                "Model not yet initialized. Run `train` to fit a model to an input dataset"
-            )
+            raise ValueError("Model not yet initialized. Run `train` to fit a model to an input dataset")
 
         self.model.eval()
         data_columns = None
@@ -590,25 +574,14 @@ class TabNet(object):
             data_columns = dict(zip(range(X.shape[1]), range(X.shape[1])))
         if isinstance(X, pd.DataFrame):
             X = X.values
-        pred_data = InferenceDataset(
-            X,
-            self.model_params["categorical_config"],
-            columns=data_columns,
-            device=self.device,
-        )
+        pred_data = InferenceDataset(X, self.model_params["categorical_config"], columns=data_columns, device=self.device)
         with torch.no_grad():
-
-            pred_generator = torch.utils.data.DataLoader(
-                pred_data, **{"batch_size": batch_size, "shuffle": False}
-            )
-
+            pred_generator = torch.utils.data.DataLoader(pred_data, **{"batch_size": batch_size, "shuffle": False})
             out_y_pred = []
             for batch_idx, (x_batch_cont, x_batch_cat) in enumerate(pred_generator):
                 ones_mask = self.__generate_model_mask(0, x_batch_cont.size()[0])
                 y_val_pred = None
-                x_embedded, y_pred_logits, x_reconstruct_batch, masks = self.model(
-                    x_batch_cont, x_batch_cat, ones_mask
-                )
+                x_embedded, y_pred_logits, x_reconstruct_batch, masks = self.model(x_batch_cont, x_batch_cat, ones_mask)
                 if self.model_params["discrete_outputs"]:
                     y_val_pred = nn.functional.softmax(y_pred_logits, dim=-1)
                 else:
@@ -623,9 +596,7 @@ class TabNet(object):
             raise ValueError("`Predict_proba` not available for regression models")
         else:
             ret_data = pd.DataFrame(self.__predict(X, batch_size=batch_size).numpy())
-            ret_data.columns = map_ordinals_to_categoricals(
-                np.array(ret_data.columns), self.model_params["discrete_target_mapping"]
-            )
+            ret_data.columns = map_ordinals_to_categoricals(np.array(ret_data.columns), self.model_params["discrete_target_mapping"])
             return ret_data
 
     def predict(self, X, batch_size=1024):
